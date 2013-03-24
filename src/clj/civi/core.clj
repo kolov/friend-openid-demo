@@ -6,7 +6,7 @@
             [compojure.core :refer (GET defroutes)]
             (compojure [handler :as handler])
             [ring.util.response :as resp]
-            [hiccup.page :as h]
+            [hiccup.page :as h] 
             [net.cgrand.enlive-html :refer (content html deftemplate)]
             [compojure.route :as r]))
 
