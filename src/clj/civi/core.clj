@@ -1,6 +1,6 @@
 (ns 
   civi.core
-  (:require [civi.misc :as misc]
+  (:require 
             [cemerick.friend :as friend]
             [cemerick.friend.openid :as openid]
             [compojure.core :refer (GET defroutes)]

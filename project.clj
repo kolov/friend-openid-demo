@@ -8,7 +8,7 @@
                   ; [clj-http "0.3.0"] 
                    [jayq "0.1.0-alpha4"]
                    [domina "1.0.2-SNAPSHOT"]
-                   [enlive "1.1.2"]
+                   [enlive "1.1.1"]
                    [org.clojure/google-closure-library "0.0-1376-2"]
                    [org.clojure/google-closure-library-third-party "0.0-1376-2"]
                    [ring/ring-jetty-adapter "1.1.0-SNAPSHOT"]
