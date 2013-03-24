@@ -1,39 +1,37 @@
-(ns civi.core
-  (:use compojure.core
-        [ring.util.response :only (file-response resource-response status response)]
-        ring.util.servlet
-        [ring.middleware params session file file-info]
-        [net.cgrand.enlive-html]
-        )
-  (:require [compojure.route :as r]
-            [clj-http.client :as c]
-            [compojure.handler :as handler]
-            [ring.adapter.jetty :as ring]
-            [clojure.string :as s]
-            )
+(ns 
+  civi.core
+  (:require [civi.misc :as misc]
+            [cemerick.friend :as friend]
+            [cemerick.friend.openid :as openid]
+            [compojure.core :refer (GET defroutes)]
+            (compojure [handler :as handler])
+            [ring.util.response :as resp]
+            [hiccup.page :as h]
+            [net.cgrand.enlive-html :refer (content html deftemplate)]
+            [compojure.route :as r]))
+
+(deftemplate home-page "index.html" [req]  
+  [:title] (content "Welcome")   
+  [:div#login-area] (if-let [auth (friend/current-authentication req)] 
+    (content (html (str "Welcome, " (:firstname auth)) [:button  {  :onClick "civi.main.doLogout();"} "Logout"]))
+    (content (html [:a#login-google {:class "btn-auth btn-google" :onClick "civi.main.doLoginGoogle();" } "Sign in with " [:b "Google"]]))))
+
+(defn index [req]
+  (->> (home-page req) resp/response)) 
+
+
+(defroutes routes
+   (GET "/" req (index req) )
+   (GET "/logout" req (friend/logout* (resp/redirect (str (:context req) "/"))))
+   (r/resources "/" {:root ""}) 
+   (r/not-found (resp/file-response "not-found.html" {:root "resources/private"}))
 )
 
- 
-(deftemplate home-page "hello.html" []
-  [:title] (content "hi") 
- [:body] (content "hi"))
-
-(defn index
-  "Index page handler"
-  [req]
-  (->> (home-page) response)) ;; A sexier way to write (response (home-page))
- 
-;; Routes definition
-(defroutes app-routes
-  (GET "/" [] (index nil) )
-  (r/not-found "<h1>Page not found</h1>"))
- 
-(defservice app-routes)
-
-(def app (handler/site app-routes))
-;(defonce server  (ring/run-jetty #'app {:port 8888 :join? false}))
-; to start: (use 'ring.util.serve)
-; (serve app)
-
-(defn -main [port]
-  (ring/run-jetty app {:port (Integer. port)}))
+(def secured-app (handler/site
+            (friend/authenticate
+              routes
+              {:allow-anon? true
+               :default-landing-uri  "/"
+               :workflows [(openid/workflow
+                             :openid-uri "/login"
+                             :credential-fn identity)]})))

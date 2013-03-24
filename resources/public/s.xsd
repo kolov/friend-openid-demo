@@ -8,7 +8,14 @@
                 <xs:element name="firstName" type="xs:string"/>
                 <xs:element name="secondName" type="xs:string"/>
                 <xs:element name="address" type="xs:string"/>
-                <xs:element name="age" type="xs:integer"/>
+                <xs:element name="age">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:integer">
+                            <xs:minInclusive value="0"/>
+                            <xs:maxInclusive value="120"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
                 <xs:element name="skills" type="skills"/>
             </xs:sequence>
         </xs:complexType>
