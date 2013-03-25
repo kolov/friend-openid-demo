@@ -1,5 +1,7 @@
 # civi Stripped
 
+#Problem "fixed". Authentication was failing because of time sync issue
+
 A simple application built following the friend-demo. 
 It works locally, but throws an error when started on a remote machine:
 
