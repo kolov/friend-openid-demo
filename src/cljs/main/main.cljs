@@ -27,7 +27,7 @@
 (defn submit-login [p] (do (set! (.-value (dom/getElement "login-identifier")) (p providers)) (.submit (dom/getElement "login-form"))))
 
 (defn ^:export doLoginGoogle [] (submit-login :google))
-(defn ^:export doLogout [](.submit (dom/getElement "logout-form")))
+(defn ^:export doLogout [] (.submit (dom/getElement "logout-form")))
 
 (defn show-bubble[el content ] 
   (let [b (goog.ui.Bubble. content)] 

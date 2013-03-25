@@ -21,7 +21,7 @@
 
 
 (defroutes routes
-   (GET "/" req (index req) )
+   (GET "/" req ( assoc (index req) :headers {"Content-Type" "text/html"}   ))
    (GET "/logout" req (friend/logout* (resp/redirect (str (:context req) "/"))))
    (r/resources "/" {:root ""}) 
    (r/not-found (resp/file-response "not-found.html" {:root "resources/private"}))

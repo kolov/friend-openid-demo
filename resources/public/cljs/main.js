@@ -33964,13 +33964,13 @@ civi.main.doLogout = function doLogout() {
 };
 goog.exportSymbol("civi.main.doLogout", civi.main.doLogout);
 civi.main.show_bubble = function show_bubble(el, content) {
-  var b_4325 = new goog.ui.Bubble(content);
-  b_4325.setAutoHide(true);
-  b_4325.setTimeout(0);
-  b_4325.setPosition(new goog.positioning.AnchoredPosition(el, null));
-  b_4325.render();
-  b_4325.attach(el);
-  b_4325.setVisible(true);
+  var b_4638 = new goog.ui.Bubble(content);
+  b_4638.setAutoHide(true);
+  b_4638.setTimeout(0);
+  b_4638.setPosition(new goog.positioning.AnchoredPosition(el, null));
+  b_4638.render();
+  b_4638.attach(el);
+  b_4638.setVisible(true);
   domina.events.listen_BANG_.call(null, domina.css.sel.call(null, "#login-google"), "\ufdd0'click", cljs.core.partial.call(null, civi.main.submit_login, "\ufdd0'google"));
   return domina.events.listen_BANG_.call(null, domina.css.sel.call(null, "#login-facebook"), "\ufdd0'click", cljs.core.partial.call(null, civi.main.submit_login, "\ufdd0'facebook"))
 };
