@@ -19,6 +19,7 @@
 (defn index [req]
   (->> (home-page req) resp/response)) 
 
+(defn log-request[handler] (fn[request] (do (print (str "Uri: " (:uri request)  "\n")) (flush) (handler request)))) 
 
 (defroutes routes
    (GET "/" req (assoc  (index req)  :headers {"Content-Type" "text/html"}))
@@ -28,10 +29,11 @@
 )
 
 (def secured-app (handler/site
+           (log-request
             (friend/authenticate
               routes
               {:allow-anon? true
                :default-landing-uri  "/"
                :workflows [(openid/workflow
                              :openid-uri "/login"
-                             :credential-fn identity)]})))
+                             :credential-fn identity)]}))))
