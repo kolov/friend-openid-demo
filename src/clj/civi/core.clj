@@ -1,6 +1,6 @@
 (ns 
   civi.core
-  (:require 
+  (:require  
             [cemerick.friend :as friend]
             [cemerick.friend.openid :as openid]
             [compojure.core :refer (GET defroutes)]
@@ -20,7 +20,7 @@
   (->> (home-page req) resp/response)) 
 
 (defn log-request[handler] (fn[request] (do (print (str "Uri: " (:uri request)  "\n")) (flush) (handler request)))) 
-
+ 
 (defroutes routes
    (GET "/" req (assoc  (index req)  :headers {"Content-Type" "text/html"}))
    (GET "/logout" req (friend/logout* (resp/redirect (str (:context req) "/"))))

@@ -24,10 +24,11 @@
                 :wordpress "http://username.wordpress.com"})
 
 (set! (.-bubbleWidth goog.ui.Bubble/defaultConfig) 350) 
-(defn submit-login [p] (do (set! (.-value (dom/getElement "login-identifier")) (p providers)) (.submit (dom/getElement "login-form"))))
+(defn set-action-and-submit[form action] (set! (.-action form) (str (.-baseURI form) "/" action)) (.submit form))
 
+(defn submit-login [p]  (set! (.-value (dom/getElement "login-identifier")) (p providers)) (set-action-and-submit (dom/getElement "login-form") "login"))
 (defn ^:export doLoginGoogle [] (submit-login :google))
-(defn ^:export doLogout [](.submit (dom/getElement "logout-form")))
+(defn ^:export doLogout [] (set-action-and-submit (dom/getElement "logout-form") "logout"))
 
 (defn show-bubble[el content ] 
   (let [b (goog.ui.Bubble. content)] 
