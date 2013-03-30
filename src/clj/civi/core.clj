@@ -19,12 +19,11 @@
 (defn index [req]
   (->> (home-page req) resp/response)) 
 
-(defn log-request[handler] (fn[request] (do (print (str "Uri: " (:uri request)  "\n")) (flush) (handler request)))) 
+(defn log-request[handler] (fn[request] (do (print (str "Identity: " (-> request :session :cemerick.friend/identity )  "\n")) (flush) (handler request))))
 
 (defn file[f] (resp/file-response f {:root "resources/private"}))
 (defroutes routes
    (GET "/" req (assoc  (index req)  :headers {"Content-Type" "text/html"}))
-   (GET "/unprotected" req (file "protected.html") )
    (GET "/protected" req (friend/authorize #{::admin} (file "protected.html")  ))
    (GET "/logout" req (friend/logout* (resp/redirect (str (:context req) "/"))))
    (r/resources "/" {:root ""}) 
