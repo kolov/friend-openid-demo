@@ -1,6 +1,9 @@
 # civi Stripped
 
-The friend-based authentication part of the project. It works locally, but throws an error when started on a remote machine:
+#Problem "fixed". Authentication was failing because of time sync issue
+
+A simple application built following the friend-demo. 
+It works locally, but throws an error when started on a remote machine:
 
     openid.clj:92  cemerick.friend.openid/handle-return
     openid.clj:118	cemerick.friend.openid/workflow[fn]
