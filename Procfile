@@ -1,1 +1,1 @@
-web: lein trampoline run -m civi.core $PORT
+web: lein with-profile production trampoline run -m civi.core $PORT
