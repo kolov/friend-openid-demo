@@ -1,6 +1,7 @@
 (ns civi.main
   (:require 
             [goog.dom :as dom]
+            [goog.string :as gs]
             [clojure.browser.repl :as repl]
             [clojure.string :as str]
             [clojure.browser.repl :as repl] 
@@ -24,7 +25,8 @@
                 :wordpress "http://username.wordpress.com"})
 
 (set! (.-bubbleWidth goog.ui.Bubble/defaultConfig) 350) 
-(defn set-action-and-submit[form action] (set! (.-action form) (str (.-baseURI form) "/" action)) (.submit form))
+(defn set-action-and-submit[form action]
+  (let[base  (.-baseURI form)] (set! (.-action form) (str (if-not (gs/endsWith base "/") "/") action)) (.submit form)))
 
 (defn submit-login [p]  (set! (.-value (dom/getElement "login-identifier")) (p providers)) (set-action-and-submit (dom/getElement "login-form") "login"))
 (defn ^:export doLoginGoogle [] (submit-login :google))

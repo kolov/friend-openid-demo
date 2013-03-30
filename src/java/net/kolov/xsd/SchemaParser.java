@@ -14,11 +14,9 @@ public class SchemaParser {
         XSImplementation impl = (XSImplementation) registry.getDOMImplementation("XS-Loader");
         XSLoader schemaLoader = impl.createXSLoader(null);
 
-
         XSModel model = schemaLoader.loadURI("resources/public/s.xsd");
 
         XSNamedMap c1 = model.getComponents(XSConstants.ELEMENT_DECLARATION);
-
 
         for (int i = 0; i < c1.getLength(); i++) {
             XSElementDeclaration eld = (XSElementDeclaration) c1.item(i);

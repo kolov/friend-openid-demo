@@ -12,9 +12,7 @@
                    [org.clojure/google-closure-library-third-party "0.0-1376-2"]
                    [com.novemberain/monger "1.4.2"]
                    [com.akolov/xelery "0.1.0"]
-                   [com.cemerick/friend "0.1.5-SNAPSHOT"]
-             ;      [friend-oauth2 "0.0.3"]
-             
+                   [com.cemerick/friend "0.1.5"]
  ]
     :dev-dependencies [[ring/ring-devel "1.1.0-SNAPSHOT"]
                        [lein-ring "0.5.4"]
