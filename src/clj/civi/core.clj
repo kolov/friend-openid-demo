@@ -12,8 +12,8 @@
 
 (deftemplate home-page "index.html" [req]
   [:title] (content "Welcome")
-  [:div#login-area] (if-let [auth (friend/current-authentication req)] 
-    (content (html (str "Welcome, " (:firstname auth)) [:br] [:a  {  :href "/logout"} "Logout"]))
+  [:div#login-area] (if-let [username (:firstname (friend/current-authentication req))]
+    (content (html (str "Welcome, " username) [:br] [:a  {  :href "/logout"} "Logout"]))
     (content (html "Welcome, anonymous" [:br] [:a#login-google { :href "javascript:document.forms[0].submit();" } "Sign in with " [:b "Google"]]))))
 
 (defn index [req]
