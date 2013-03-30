@@ -6,6 +6,7 @@
                    [ring/ring-jetty-adapter "1.1.0"]
                    [compojure "1.2.0-SNAPSHOT"]
                    [enlive "1.1.1"]
+                   [hiccup "1.0.1"]
                    [com.cemerick/friend "0.1.5"]]
     :min-lein-version "2.0.0"
     :dev-dependencies [ [lein-ring "0.5.4"]]
