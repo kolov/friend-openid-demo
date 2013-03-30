@@ -1,5 +1,4 @@
-(ns 
-  civi.core
+(ns civi.core
   (:require  
             [cemerick.friend :as friend]
             [cemerick.friend.openid :as openid]
@@ -8,7 +7,8 @@
             [ring.util.response :as resp]
             [hiccup.page :as h] 
             [net.cgrand.enlive-html :refer (content html deftemplate)]
-            [compojure.route :as r]))
+            [compojure.route :as r]
+            ring.adapter.jetty))
 
 (deftemplate home-page "index.html" [req]
   [:title] (content "Welcome")
@@ -24,7 +24,8 @@
 (defn file[f] (resp/file-response f {:root "resources/private"}))
 (defroutes routes
    (GET "/" req (assoc  (index req)  :headers {"Content-Type" "text/html"}))
-   (GET "/protected" req (friend/authorize #{::admin} (file "protected.html") "Admin page"))
+   (GET "/unprotected" req (file "protected.html") )
+   (GET "/protected" req (friend/authorize #{::admin} (file "protected.html")  ))
    (GET "/logout" req (friend/logout* (resp/redirect (str (:context req) "/"))))
    (r/resources "/" {:root ""}) 
    (r/not-found (resp/file-response "not-found.html" {:root "resources/private"}))
@@ -42,3 +43,8 @@
                              :login-failure-handler  (fn[_] (file "login-failed.html"))
                              :openid-uri "/login"
                              :credential-fn #(-> % :email nil? not (if (merge % {:roles #{::admin}}))))]}))))
+
+(defn -main
+  "For heroku."
+  [port]
+  (ring.adapter.jetty/run-jetty secured-app {:port (Integer. port)}))
