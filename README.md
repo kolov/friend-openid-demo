@@ -7,7 +7,7 @@ but I missed the details of how to handle failed authorizations, resource protec
 
 It let the user log in/out, shows xoem date of the logged user end logs all avaliable identity information.
 
-See http://kolov-it.com/openid-friend/ for a bit more details.
+See http://kolov-it.com/openid-friend/ for a bit more details about the implementation.
 
-See it in action at http://open-friend.herokuapp.com/
+See it in action at http://demo-f-openid.herokuapp.com
 
